@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".Login">
 
     <TextView
@@ -15,12 +17,55 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/light_blue"
-        />
+        android:textSize="30sp"
+        android:textColor="@color/light_blue" />
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/email_input"
+        android:layout_marginTop="30dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="50dp"
         android:hint="@string/enterName"
+        android:background="@drawable/input_border"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="50dp"
+        android:hint="@string/enterPassword"
+        android:background="@drawable/input_border"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry" />
+    <Button
+        android:layout_width="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_background_button"
+        android:text="@string/login"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/already_have_an_account"
+        android:layout_gravity="center"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textColor="@color/light_blue"
+        android:textStyle="bold"
+        />
 
 </LinearLayout>

@@ -3,4 +3,10 @@
     <string name="appName">Welcome to <b>LinkedN</b></string>
     <string name="start">Start</string>
     <string name="enterName">Input email</string>
+    <string name="email">Email</string>
+    <string name="enterPassword">Enter password</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up"><u>Sign up</u></string>
+    <string name="logo">Logo</string>
 </resources>
