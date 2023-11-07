@@ -2,11 +2,21 @@
     <string name="app_name">LinkedN</string>
     <string name="appName">Welcome to <b>LinkedN</b></string>
     <string name="start">Start</string>
-    <string name="enterName">Input email</string>
+    <string name="enterName">Enter name</string>
     <string name="email">Email</string>
     <string name="enterPassword">Enter password</string>
     <string name="login">Login</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="sign_up"><u>Sign up</u></string>
     <string name="logo">Logo</string>
+    <string name="sign_up_no_line">Sign Up</string>
+    <string name="enterEmail">Enter email address</string>
+    <string name="enterPasswordConfirm">Enter password again</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
 </resources>

@@ -4,9 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    android:layout_gravity="centre"
-
+    android:layout_margin="10dp"
+    android:orientation="vertical"
     tools:context=".SignUp">
+    <!--    android:layout_gravity="center"-->
+    <!--    android:gravity="center"-->
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_no_line"
+        android:textSize="30sp"
+        android:textColor="@color/light_blue"
+        android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/sign_up_email"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:paddingStart="5dp"
+        android:background="@drawable/input_border"
+        android:hint="@string/enterEmail"/>
+
+    <EditText
+        android:id="@+id/sign_up_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="5dp"
+        android:background="@drawable/input_border"
+        android:hint="@string/enterName"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/enterPasswordConfirm"
+        android:background="@drawable/input_border"
+        android:paddingStart="5dp"
+        android:layout_marginTop="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        />
 </LinearLayout>
