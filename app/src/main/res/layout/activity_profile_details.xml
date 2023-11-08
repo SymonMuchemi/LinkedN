@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    tools:context=".profileDetails">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textColor="@color/light_blue"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="#A6161819"
+        android:layout_gravity="center"
+        android:src="@drawable/baseline_person_search_24" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingStart="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:hint="@string/short_bio"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:paddingStart="5dp"
+        android:hint="@string/phone_number"/>
+</LinearLayout>
