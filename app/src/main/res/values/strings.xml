@@ -12,6 +12,9 @@
     <string name="sign_up_no_line">Sign Up</string>
     <string name="enterEmail">Enter email address</string>
     <string name="enterPasswordConfirm">Enter password again</string>
+    <string name="gender">Gender</string>
+    <string name="short_bio">Short bio</string>
+    <string name="phone_number">Phone Number</string>
 
     <string-array name="gender">
         <item>Male</item>

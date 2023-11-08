@@ -38,6 +38,9 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        // if no text is sl
+
+
 
     }
 }
