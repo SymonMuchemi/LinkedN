@@ -16,6 +16,9 @@
     <string name="short_bio">Short bio</string>
     <string name="phone_number">Phone Number</string>
     <string name="profile">Profile</string>
+    <string name="john_doe">John Doe</string>
+    <string name="update_details">Update Details</string>
+    <string name="camera_icon">Camera icon</string>
 
     <string-array name="gender">
         <item>Male</item>

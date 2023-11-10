@@ -2,13 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:layout_margin="5dp"
     tools:context=".profileDetails">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:titleTextAppearance="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <TextView
+        android:id="@+id/text_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile"
@@ -17,26 +29,82 @@
         android:textSize="30sp"
         />
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:background="#A6161819"
-        android:layout_gravity="center"
-        android:src="@drawable/baseline_person_search_24" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="201dp"
+        android:layout_marginTop="20dp">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:background="#8C8F96"
+            android:src="@drawable/person_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circular"
+            app:strokeColor="@color/light_blue"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/camera_icon"
+            android:backgroundTint="#3F5AF1"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.708"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/baseline_photo_camera_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/john_doe"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/light_blue"
+        android:gravity="center"
+        />
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="90dp"
         android:paddingStart="5dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/input_border"
-        android:hint="@string/short_bio"/>
+        android:inputType="textAutoCorrect"
+        android:hint="@string/short_bio"
+        tools:ignore="RtlSymmetry"
+        android:autofillHints="" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/input_border"
+        android:inputType="number"
         android:paddingStart="5dp"
-        android:hint="@string/phone_number"/>
+        android:hint="@string/phone_number"
+        tools:ignore="RtlSymmetry"
+        android:importantForAutofill="no" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/update_details"
+        android:background="@drawable/blue_background_button"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        />
 </LinearLayout>

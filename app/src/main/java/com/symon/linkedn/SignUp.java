@@ -2,14 +2,18 @@ package com.symon.linkedn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    Button signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,16 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        signUp = findViewById(R.id.sign_up_button);
+
+
+        signUp.setOnClickListener(
+                v -> {
+                    Intent profilePage = new Intent(this, profileDetails.class);
+                    startActivity(profilePage);
+                }
+        );
     }
 
     @Override
@@ -38,9 +52,6 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        // if no text is sl
-
-
 
     }
 }
