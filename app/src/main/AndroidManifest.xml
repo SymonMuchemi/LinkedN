@@ -13,6 +13,15 @@
         android:theme="@style/Theme.LinkedN"
         tools:targetApi="31">
         <activity
+            android:name=".popupWindow"
+            android:exported="false" />
+        <activity
+            android:name=".LandingPage"
+            android:exported="false" />
+        <activity
+            android:name=".UsersList"
+            android:exported="false" />
+        <activity
             android:name=".TestActvty"
             android:exported="false" />
         <activity

@@ -58,7 +58,7 @@
         android:layout_height="40dp"
         android:background="@drawable/input_border"
         android:layout_gravity="center"
-        android:hint="@string/gender"
+        android:hint="@string/gender_select"
         />
     <Button
         android:id="@+id/sign_up_button"

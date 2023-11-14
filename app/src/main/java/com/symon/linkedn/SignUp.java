@@ -26,12 +26,13 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                 R.array.gender,
                 android.R.layout.simple_spinner_item
         );
+        // Specify the layout to use when the list of choices appears.
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+//        spinner.setOnItemSelectedListener(this);
 
         signUp = findViewById(R.id.sign_up_button);
-
 
         signUp.setOnClickListener(
                 v -> {
@@ -43,11 +44,11 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
+        /*String text = parent.getItemAtPosition(position).toString();
         Toast.makeText(
                 this,
                 text,
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
