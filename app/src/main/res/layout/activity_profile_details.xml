@@ -76,16 +76,6 @@
         android:textColor="@color/light_blue"
         android:gravity="center"
         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:paddingStart="5dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/input_border"
-        android:inputType="textAutoCorrect"
-        android:hint="@string/short_bio"
-        tools:ignore="RtlSymmetry"
-        android:autofillHints="" />
 
     <EditText
         android:layout_width="match_parent"
@@ -97,6 +87,27 @@
         android:hint="@string/phone_number"
         tools:ignore="RtlSymmetry"
         android:importantForAutofill="no" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:inputType="textAutoCorrect"
+        android:hint="@string/skill"
+        tools:ignore="RtlSymmetry"
+        android:autofillHints="programming" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingStart="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_border"
+        android:inputType="textAutoCorrect"
+        android:hint="@string/short_bio"
+        tools:ignore="RtlSymmetry"
+        android:autofillHints="" />
+
     <Button
         android:layout_width="250dp"
         android:layout_height="wrap_content"

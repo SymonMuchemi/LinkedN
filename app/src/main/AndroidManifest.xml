@@ -14,15 +14,10 @@
         tools:targetApi="31">
         <activity
             android:name=".popupWindow"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.customTheme"/>
         <activity
             android:name=".LandingPage"
-            android:exported="false" />
-        <activity
-            android:name=".UsersList"
-            android:exported="false" />
-        <activity
-            android:name=".TestActvty"
             android:exported="false" />
         <activity
             android:name=".profileDetails"

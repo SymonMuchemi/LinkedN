@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Navigation appNavigation = new Navigation(this, SignUp.this);
 
     Button signUp;
 
@@ -30,16 +31,11 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
+        //spinner.setOnItemSelectedListener(this);
 
         signUp = findViewById(R.id.sign_up_button);
 
-        signUp.setOnClickListener(
-                v -> {
-                    Intent profilePage = new Intent(this, profileDetails.class);
-                    startActivity(profilePage);
-                }
-        );
+        signUp.setOnClickListener( v -> { appNavigation.moveToActivity(profileDetails.class); });
     }
 
     @Override

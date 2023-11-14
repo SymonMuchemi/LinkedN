@@ -2,24 +2,21 @@ package com.symon.linkedn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button start = findViewById(R.id.startButton);
-
-        start.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(this, Login.class);
-                    startActivity(intent);
-                }
-        );
+        Navigation navigation = new Navigation(this, MainActivity.this);
+        new Handler().postDelayed(() -> {
+            navigation.moveToActivity(Login.class);
+            finish();
+        }, 2000);
     }
 }
