@@ -107,8 +107,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="348dp"
@@ -308,4 +306,14 @@
 
 
     </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/white"
+        android:text="Logout"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:background="@drawable/blue_background_button"/>
 </LinearLayout>
