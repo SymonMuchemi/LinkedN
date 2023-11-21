@@ -2,6 +2,7 @@ package com.symon.linkedn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +15,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +27,12 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
     Button signUp;
     EditText emailInput, passwordInput, nameInput;
     String name, gender, email, password, userId;
+//    Integer mobile = 071233;
+//    String shortBio = "Test short bio";
     private FirebaseAuth mAuth;
-    User newUser;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference;
+//    private FirebaseFirestore db;
+//    User newUser;
+
     FirebaseUser firebaseUser;
 
     @Override
@@ -48,7 +51,8 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
         setContentView(R.layout.activity_sign_up);
 
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
+//        db = FirebaseFirestore.getInstance();
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -67,13 +71,17 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
 
         signUp.setOnClickListener( v -> {
             name = String.valueOf(nameInput.getText()).trim();
-            email = String.valueOf(emailInput.getText());
+            email = String.valueOf(emailInput.getText()).trim();
             password = String.valueOf(passwordInput.getText()).trim();
 
-            databaseReference = database.getReference().child("Users");
-            databaseReference.setValue(name);
+            Intent intent = new Intent(this, profileDetails.class);
+            intent.putExtra("name", name);
+            intent.putExtra("password", password);
+            intent.putExtra("email", email);
+            intent.putExtra("gender", gender);
+            startActivity(intent);
 
-            mAuth.createUserWithEmailAndPassword(email, password)
+            /*mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
@@ -88,19 +96,15 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-            );
+            );*/
         });
     }
-    public void insertUserData(){
+   /* public void insertUserData(){
         if (firebaseUser != null) {
-            User newUser = new User(name, email, userId);
+            User newUser = new User(name, email,  firebaseUser.getUid().toString(), mobile, "gender", shortBio);
 //            databaseReference.child(userId).setValue(newUser);
-            Map <String, Object> userDetails = new HashMap<>();
-            userDetails.put("Name", newUser.getName());
-            userDetails.put("Email", newUser.getEmail());
 
-            databaseReference.child("User").child("UserID").setValue(userDetails);
-
+            db.collection("users").document(email).set(newUser);
             Toast.makeText(this, "Details enter successfully!", Toast.LENGTH_SHORT).show();
             appNavigation.moveToActivity(LandingPage.class);
         }
@@ -108,7 +112,7 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
             Toast.makeText(this, "Unable to create user profile", Toast.LENGTH_SHORT).show();
             appNavigation.moveToActivity(Login.class);
         }
-    }
+    }*/
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

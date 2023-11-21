@@ -78,6 +78,7 @@
         />
 
     <EditText
+        android:id="@+id/phone_number"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -88,6 +89,7 @@
         tools:ignore="RtlSymmetry"
         android:importantForAutofill="no" />
     <EditText
+        android:id="@+id/skill_tab"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:paddingStart="5dp"
@@ -98,6 +100,7 @@
         tools:ignore="RtlSymmetry"
         android:autofillHints="programming" />
     <EditText
+        android:id="@+id/short_bio_field"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:paddingStart="5dp"
@@ -109,6 +112,7 @@
         android:autofillHints="" />
 
     <Button
+        android:id="@+id/update_details_button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

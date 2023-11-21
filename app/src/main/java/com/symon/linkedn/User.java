@@ -5,12 +5,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-    String name, email, userId;
+    private String name, email, userId,gender,shortBio;
+    Integer mobileNo;
 
-    public User(String name, String email, String userId) {
+    public User(String name, String email, String userId, Integer mobileNo, String gender,String shortBio) {
         this.name = name;
         this.email = email;
         this.userId = userId;
+        this.mobileNo = mobileNo;
+        this.gender = gender;
+        this.shortBio = shortBio;
+    }
+
+    public User(){
+
+    }
+
+    public String getShortBio() {
+        return shortBio;
+    }
+
+    public Integer getMobileNo() {
+        return mobileNo;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public String getName() {
@@ -37,12 +57,4 @@ public class User {
         this.userId = userId;
     }
 
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> userDetails = new HashMap<>();
-        userDetails.put("name", name);
-        userDetails.put("email", email);
-        userDetails.put("UserId", userId);
-
-        return userDetails;
-    }
 }
