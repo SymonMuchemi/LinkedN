@@ -40,7 +40,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:background="#8C8F96"
+            android:background="@color/image_bg_color"
             android:src="@drawable/person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

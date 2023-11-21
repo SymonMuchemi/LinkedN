@@ -1,19 +1,17 @@
 package com.symon.linkedn;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
-    String name, email, password;
+    String name, email, userId;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String userId) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.userId = userId;
     }
-
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabase;
 
     public String getName() {
         return name;
@@ -31,16 +29,20 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void writeNewUser(String userId) {
-        mDatabase = database.getReference();
-        mDatabase.child("Users").child(getName()).setValue(this.name);
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> userDetails = new HashMap<>();
+        userDetails.put("name", name);
+        userDetails.put("email", email);
+        userDetails.put("UserId", userId);
+
+        return userDetails;
     }
 }

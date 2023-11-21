@@ -34,6 +34,14 @@
         android:paddingStart="5dp"
         android:background="@drawable/input_border"
         android:hint="@string/enterEmail"/>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:hint="@string/gender_select"
+        />
     <EditText
         android:id="@+id/password_1"
         android:layout_width="match_parent"
@@ -42,6 +50,7 @@
         android:background="@drawable/input_border"
         android:paddingStart="5dp"
         android:layout_marginTop="20dp"/>
+
     <EditText
         android:id="@+id/password_2"
         android:layout_width="match_parent"
@@ -51,15 +60,6 @@
         android:paddingStart="5dp"
         android:layout_marginTop="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="40dp"
-        android:background="@drawable/input_border"
-        android:layout_gravity="center"
-        android:hint="@string/gender_select"
-        />
     <Button
         android:id="@+id/sign_up_button"
         android:layout_width="match_parent"

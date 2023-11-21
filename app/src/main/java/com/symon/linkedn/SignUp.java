@@ -17,16 +17,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Navigation appNavigation = new Navigation(this, SignUp.this);
 
     Button signUp;
     EditText emailInput, passwordInput, nameInput;
-    String name, gender, email, password;
+    String name, gender, email, password, userId;
     private FirebaseAuth mAuth;
     User newUser;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference mDatabase;
+    DatabaseReference databaseReference;
+    FirebaseUser firebaseUser;
 
     @Override
     public void onStart() {
@@ -66,26 +70,44 @@ public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelec
             email = String.valueOf(emailInput.getText());
             password = String.valueOf(passwordInput.getText()).trim();
 
-            mDatabase = database.getReference("Users");
-            mDatabase.setValue(name);
+            databaseReference = database.getReference().child("Users");
+            databaseReference.setValue(name);
 
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("FB_AUTH", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            newUser = new User(name, email, user.getUid());
-                            newUser.writeNewUser(user.getUid());
-                            appNavigation.moveToActivity(LandingPage.class);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("FB_AUTH", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUp.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("FB_AUTH", "createUserWithEmail:success");
+                        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        firebaseUser = mAuth.getCurrentUser();
+                        insertUserData();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("FB_AUTH", "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(SignUp.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            );
         });
+    }
+    public void insertUserData(){
+        if (firebaseUser != null) {
+            User newUser = new User(name, email, userId);
+//            databaseReference.child(userId).setValue(newUser);
+            Map <String, Object> userDetails = new HashMap<>();
+            userDetails.put("Name", newUser.getName());
+            userDetails.put("Email", newUser.getEmail());
+
+            databaseReference.child("User").child("UserID").setValue(userDetails);
+
+            Toast.makeText(this, "Details enter successfully!", Toast.LENGTH_SHORT).show();
+            appNavigation.moveToActivity(LandingPage.class);
+        }
+        else {
+            Toast.makeText(this, "Unable to create user profile", Toast.LENGTH_SHORT).show();
+            appNavigation.moveToActivity(Login.class);
+        }
     }
 
     @Override
