@@ -22,6 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -33,11 +35,15 @@ public class profileDetails extends AppCompatActivity {
     EditText phoneNumber, shortBio, skill;
     String name, email, password, gender, userId;
     String skills, bio;
+    Uri imageUri;
     Integer mobile;
     Navigation appNavigation;
+    User newUser;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
+    StorageReference firebaseStorageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,8 @@ public class profileDetails extends AppCompatActivity {
         appNavigation = new Navigation(this, profileDetails.this);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        firebaseStorageReference = firebaseStorage.getReference();
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         updateDetailsButton = findViewById(R.id.update_details_button);
@@ -87,7 +95,7 @@ public class profileDetails extends AppCompatActivity {
                            Log.d("FB_AUTH", "CreateUserWithEmail: success");
                            firebaseUser = mAuth.getCurrentUser();
                            userId = firebaseUser.getUid().toString();
-                            insertUserData();
+                           uploadImageAndInsertUserData();
                        } else {
                            Log.w("FB_AUTH", "CreateUserWithEmail: failure", task.getException());
                            Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
@@ -98,13 +106,37 @@ public class profileDetails extends AppCompatActivity {
 
     public void insertUserData(){
         if (firebaseUser != null) {
-            User newUser = new User(name, email, userId, mobile, gender,bio);
+            newUser = new User(name, email, userId, mobile, gender,bio);
             firebaseFirestore.collection("users").document(email).set(newUser);
             Toast.makeText(this, "Details entered successfully!", Toast.LENGTH_SHORT).show();
             appNavigation.moveToActivity(LandingPage.class);
         } else {
             Toast.makeText(this, "Unable to create user!", Toast.LENGTH_SHORT).show();
-            appNavigation.moveToActivity(LandingPage.class);
+            appNavigation.moveToLogin();
+        }
+    }
+
+    public void uploadImageAndInsertUserData(){
+        if (imageUri != null){
+            String imageName = userId + ".jpg";
+            firebaseStorageReference.child("user_images/" + imageName)
+                    .putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        firebaseStorageReference.child("user_images" + imageName)
+                                .getDownloadUrl()
+                                .addOnSuccessListener(uri -> {
+                                    newUser.setUserImage(String.valueOf(Uri.parse(uri.toString())));
+                                    insertUserData();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.d("IMAGE", "Failed to post image");
+                                    Toast.makeText(this, "Failed to get Image uri", Toast.LENGTH_SHORT).show();
+                                });
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            insertUserData();
         }
     }
     @Override
@@ -112,7 +144,7 @@ public class profileDetails extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         assert data != null;
-        Uri uri = data.getData();
-        shapeableImageView.setImageURI(uri);
+        imageUri = data.getData();
+        shapeableImageView.setImageURI(imageUri);
     }
 }
