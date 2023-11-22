@@ -4,47 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignUp extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Navigation appNavigation = new Navigation(this, SignUp.this);
-
     Button signUp;
     EditText emailInput, passwordInput, nameInput;
-    String name, gender, email, password, userId;
+    String name, gender, email, password;
 //    Integer mobile = 071233;
 //    String shortBio = "Test short bio";
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
 //    private FirebaseFirestore db;
 //    User newUser;
 
-    FirebaseUser firebaseUser;
+//    FirebaseUser firebaseUser;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in already and move to landing page
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Toast.makeText(this, "Already signed in", Toast.LENGTH_SHORT).show();
-            appNavigation.moveToActivity(LandingPage.class);
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
