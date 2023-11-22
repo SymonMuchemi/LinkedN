@@ -42,7 +42,6 @@ public class LandingPage extends AppCompatActivity {
         users = new ArrayList<>();
         rvUsers = findViewById(R.id.rvUsers);
 
-
         exit = findViewById(R.id.logout_button);
 
         db.collection("users").get().addOnCompleteListener(

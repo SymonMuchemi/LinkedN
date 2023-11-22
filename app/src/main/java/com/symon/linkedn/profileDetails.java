@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -32,6 +33,7 @@ public class profileDetails extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     Button updateDetailsButton;
     ImageView shapeableImageView;
+    ProgressBar progressBar;
     EditText phoneNumber, shortBio, skill;
     String name, email, password, gender, userId;
     String skills, bio;
@@ -63,6 +65,7 @@ public class profileDetails extends AppCompatActivity {
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         updateDetailsButton = findViewById(R.id.update_details_button);
+        progressBar = findViewById(R.id.progress_bar);
         shapeableImageView = findViewById(R.id.shapeableImageView);
         phoneNumber = findViewById(R.id.phone_number);
         shortBio = findViewById(R.id.short_bio_field);
@@ -89,6 +92,7 @@ public class profileDetails extends AppCompatActivity {
             mobile = Integer.parseInt(phoneNumber.getText().toString().trim());
             skills = String.valueOf(skill.getText()).trim();
 
+            appNavigation.sessionStart(updateDetailsButton, progressBar);
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                        if (task.isSuccessful()){
@@ -98,6 +102,7 @@ public class profileDetails extends AppCompatActivity {
                            uploadImageAndInsertUserData();
                        } else {
                            Log.w("FB_AUTH", "CreateUserWithEmail: failure", task.getException());
+                           appNavigation.sessionComple(updateDetailsButton, progressBar);
                            Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                        }
                     });
@@ -112,6 +117,7 @@ public class profileDetails extends AppCompatActivity {
             appNavigation.moveToActivity(LandingPage.class);
         } else {
             Toast.makeText(this, "Unable to create user!", Toast.LENGTH_SHORT).show();
+            appNavigation.sessionComple(updateDetailsButton, progressBar);
             appNavigation.moveToLogin();
         }
     }
@@ -130,10 +136,13 @@ public class profileDetails extends AppCompatActivity {
                                 })
                                 .addOnFailureListener(e -> {
                                     Log.d("IMAGE", "Failed to post image");
+                                    appNavigation.sessionComple(updateDetailsButton, progressBar);7
                                     Toast.makeText(this, "Failed to get Image uri", Toast.LENGTH_SHORT).show();
                                 });
                     }).addOnFailureListener(e -> {
                         Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                        appNavigation.sessionComple(updateDetailsButton, progressBar);
+                        appNavigation.moveToLogin();
                     });
         } else {
             insertUserData();
