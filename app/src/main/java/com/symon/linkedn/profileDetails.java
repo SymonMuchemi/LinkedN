@@ -33,7 +33,7 @@ public class profileDetails extends AppCompatActivity {
     EditText phoneNumber, shortBio, skill;
     String name, email, password, gender, userId;
     String skills, bio;
-    int mobile;
+    Integer mobile;
     Navigation appNavigation;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -60,9 +60,6 @@ public class profileDetails extends AppCompatActivity {
         shortBio = findViewById(R.id.short_bio_field);
         skill = findViewById(R.id.skill_tab);
 
-        bio = shortBio.getText().toString().trim();
-        mobile = Integer.parseInt(phoneNumber.getText().toString().trim());
-
         Intent intent = getIntent();
 
         name = intent.getStringExtra("name");
@@ -79,6 +76,11 @@ public class profileDetails extends AppCompatActivity {
         );
 
         updateDetailsButton.setOnClickListener(v -> {
+
+            bio = shortBio.getText().toString().trim();
+            mobile = Integer.parseInt(phoneNumber.getText().toString().trim());
+            skills = String.valueOf(skill.getText()).trim();
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                        if (task.isSuccessful()){

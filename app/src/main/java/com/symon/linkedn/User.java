@@ -1,14 +1,17 @@
 package com.symon.linkedn;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class User {
     private String name, email, userId,gender,shortBio;
     Integer mobileNo;
 
-    public User(String name, String email, String userId, Integer mobileNo, String gender,String shortBio) {
+    public User(String name,
+                String email,
+                String userId,
+                Integer mobileNo,
+                String gender,
+                String shortBio
+    ) {
         this.name = name;
         this.email = email;
         this.userId = userId;
