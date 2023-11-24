@@ -36,6 +36,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         holder.mobileNo.setText(String.valueOf(user.getMobileNo()));
         holder.shortBio.setText(user.getShortBio());
         holder.gender.setText(user.getGender());
+
+        if (user.getSkills() != null) holder.skills.setText(user.getSkills());
     }
 
     @Override
@@ -53,7 +55,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             gender = itemView.findViewById(R.id.gender);
             shortBio = itemView.findViewById(R.id.short_bio);
             shapeableImageView = itemView.findViewById(R.id.shapeableImageView);
-            skills = itemView.findViewById(R.id.skill_tab);
+            skills = itemView.findViewById(R.id.skills_tab);
         }
     }
 }

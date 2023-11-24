@@ -121,6 +121,7 @@ public class profileDetails extends AppCompatActivity {
             newUser.setEmail(email);
             newUser.setUserId(userId);
             newUser.setMobileNo(mobile);
+            newUser.setSkills(skills);
             newUser.setGender(gender);
             newUser.setShortBio(bio);
             newUser.setUserImage("NULL");
@@ -137,6 +138,7 @@ public class profileDetails extends AppCompatActivity {
         if (firebaseUser != null) {
             newUser.setName(name);
             newUser.setEmail(email);
+            newUser.setSkills(skills);
             newUser.setUserId(userId);
             newUser.setGender(gender);
             newUser.setShortBio(bio);
