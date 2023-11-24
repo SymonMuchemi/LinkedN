@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -33,14 +34,15 @@ public class profileDetails extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     Button updateDetailsButton;
     ImageView shapeableImageView;
+    TextView nameText;
     ProgressBar progressBar;
     EditText phoneNumber, shortBio, skill;
     String name, email, password, gender, userId;
-    String skills, bio;
+    String skills, bio,imageName;
     Uri imageUri;
-    Integer mobile;
+    Long mobile;
     Navigation appNavigation;
-    User newUser;
+    User newUser = new User();
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
@@ -65,6 +67,7 @@ public class profileDetails extends AppCompatActivity {
 
         floatingActionButton = findViewById(R.id.floatingActionButton);
         updateDetailsButton = findViewById(R.id.update_details_button);
+        nameText = findViewById(R.id.name_text_view);
         progressBar = findViewById(R.id.progress_bar);
         shapeableImageView = findViewById(R.id.shapeableImageView);
         phoneNumber = findViewById(R.id.phone_number);
@@ -78,6 +81,8 @@ public class profileDetails extends AppCompatActivity {
         gender = intent.getStringExtra("gender");
         password = intent.getStringExtra("password");
 
+        nameText.setText(name);
+
         floatingActionButton.setOnClickListener(
                 v -> ImagePicker.with(this)
                         .crop()	    			//Crop image(Optional), Check Customization for more option
@@ -89,7 +94,7 @@ public class profileDetails extends AppCompatActivity {
         updateDetailsButton.setOnClickListener(v -> {
 
             bio = shortBio.getText().toString().trim();
-            mobile = Integer.parseInt(phoneNumber.getText().toString().trim());
+            mobile = Long.valueOf(phoneNumber.getText().toString().trim());
             skills = String.valueOf(skill.getText()).trim();
 
             appNavigation.sessionStart(updateDetailsButton, progressBar);
@@ -98,54 +103,71 @@ public class profileDetails extends AppCompatActivity {
                        if (task.isSuccessful()){
                            Log.d("FB_AUTH", "CreateUserWithEmail: success");
                            firebaseUser = mAuth.getCurrentUser();
-                           userId = firebaseUser.getUid().toString();
+                           assert firebaseUser != null;
+                           userId = firebaseUser.getUid();
                            uploadImageAndInsertUserData();
                        } else {
                            Log.w("FB_AUTH", "CreateUserWithEmail: failure", task.getException());
-                           appNavigation.sessionComple(updateDetailsButton, progressBar);
+                           appNavigation.sessionComplete(updateDetailsButton, progressBar);
                            Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                        }
                     });
         });
     }
 
-    public void insertUserData(){
+    public void insertUserDataWithNoImage(){
         if (firebaseUser != null) {
-            newUser = new User(name, email, userId, mobile, gender,bio);
+            newUser.setName(name);
+            newUser.setEmail(email);
+            newUser.setUserId(userId);
+            newUser.setMobileNo(mobile);
+            newUser.setGender(gender);
+            newUser.setShortBio(bio);
+            newUser.setUserImage("NULL");
             firebaseFirestore.collection("users").document(email).set(newUser);
             Toast.makeText(this, "Details entered successfully!", Toast.LENGTH_SHORT).show();
             appNavigation.moveToActivity(LandingPage.class);
         } else {
             Toast.makeText(this, "Unable to create user!", Toast.LENGTH_SHORT).show();
-            appNavigation.sessionComple(updateDetailsButton, progressBar);
+            appNavigation.sessionComplete(updateDetailsButton, progressBar);
+            appNavigation.moveToLogin();
+        }
+    }
+    public void insertUserData(){
+        if (firebaseUser != null) {
+            newUser.setName(name);
+            newUser.setEmail(email);
+            newUser.setUserId(userId);
+            newUser.setGender(gender);
+            newUser.setShortBio(bio);
+            newUser.setMobileNo(mobile);
+            newUser.setUserImage(imageName);
+            firebaseFirestore.collection("users").document(email).set(newUser);
+            Toast.makeText(this, "Use with image created", Toast.LENGTH_SHORT).show();
+            appNavigation.moveToActivity(LandingPage.class);
+        } else {
+            Toast.makeText(this, "User with image not created", Toast.LENGTH_SHORT).show();
+            appNavigation.sessionComplete(updateDetailsButton, progressBar);
             appNavigation.moveToLogin();
         }
     }
 
     public void uploadImageAndInsertUserData(){
         if (imageUri != null){
-            String imageName = userId + ".jpg";
+            imageName = userId + ".jpg";
             firebaseStorageReference.child("user_images/" + imageName)
                     .putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
-                        firebaseStorageReference.child("user_images" + imageName)
-                                .getDownloadUrl()
-                                .addOnSuccessListener(uri -> {
-                                    newUser.setUserImage(String.valueOf(Uri.parse(uri.toString())));
-                                    insertUserData();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Log.d("IMAGE", "Failed to post image");
-                                    appNavigation.sessionComple(updateDetailsButton, progressBar);7
-                                    Toast.makeText(this, "Failed to get Image uri", Toast.LENGTH_SHORT).show();
-                                });
-                    }).addOnFailureListener(e -> {
+                        newUser.setUserImage(imageName);
+                        insertUserData();
+                    })
+                    .addOnFailureListener(e -> {
                         Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-                        appNavigation.sessionComple(updateDetailsButton, progressBar);
+                        appNavigation.sessionComplete(updateDetailsButton, progressBar);
                         appNavigation.moveToLogin();
                     });
         } else {
-            insertUserData();
+            insertUserDataWithNoImage();
         }
     }
     @Override

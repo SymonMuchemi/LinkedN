@@ -32,9 +32,9 @@ public class Navigation {
         button.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
     }
-    public void sessionComple(Button button, ProgressBar progressBar){
-        button.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+    public void sessionComplete(Button button, ProgressBar progressBar){
+        button.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
 }

@@ -44,7 +44,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder{
-        TextView userName,mobileNo,gender,shortBio;
+        TextView userName,mobileNo,gender,shortBio, skills;
         ShapeableImageView shapeableImageView;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +53,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             gender = itemView.findViewById(R.id.gender);
             shortBio = itemView.findViewById(R.id.short_bio);
             shapeableImageView = itemView.findViewById(R.id.shapeableImageView);
+            skills = itemView.findViewById(R.id.skill_tab);
         }
     }
 }

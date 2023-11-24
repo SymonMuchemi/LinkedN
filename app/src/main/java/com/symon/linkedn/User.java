@@ -1,37 +1,25 @@
 package com.symon.linkedn;
 
-
-import android.net.Uri;
-
-import com.google.android.material.imageview.ShapeableImageView;
-
 public class User {
     private String name, email, userId,gender,shortBio;
     private String userImage;
-    Integer mobileNo;
+    Long mobileNo;
 
-    public User(String name,
-                String email,
-                String userId,
-                Integer mobileNo,
-                String gender,
-                String shortBio
-    ) {
-        this.name = name;
-        this.email = email;
-        this.userId = userId;
-        this.mobileNo = mobileNo;
-        this.gender = gender;
-        this.shortBio = shortBio;
-    }
-
-    public User(String name, String email, String userId, String gender, String shortBio, String userImage, Integer mobileNo) {
+    public User(String name, String email, String userId, String gender, Long mobileNo, String shortBio, String userImage) {
         this.name = name;
         this.email = email;
         this.userId = userId;
         this.gender = gender;
         this.shortBio = shortBio;
         this.userImage = userImage;
+        this.mobileNo = mobileNo;
+    }
+    public User(String name, String email, String userId, String gender, Long mobileNo,  String shortBio) {
+        this.name = name;
+        this.email = email;
+        this.userId = userId;
+        this.gender = gender;
+        this.shortBio = shortBio;
         this.mobileNo = mobileNo;
     }
 
@@ -51,7 +39,7 @@ public class User {
         return shortBio;
     }
 
-    public Integer getMobileNo() {
+    public Long getMobileNo() {
         return mobileNo;
     }
 
@@ -61,6 +49,18 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setShortBio(String shortBio) {
+        this.shortBio = shortBio;
+    }
+
+    public void setMobileNo(Long mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public void setName(String name) {

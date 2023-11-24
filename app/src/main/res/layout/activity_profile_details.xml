@@ -67,6 +67,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -83,7 +84,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/input_border"
-        android:inputType="number"
+        android:inputType="phone"
         android:paddingStart="5dp"
         android:hint="@string/phone_number"
         tools:ignore="RtlSymmetry"
