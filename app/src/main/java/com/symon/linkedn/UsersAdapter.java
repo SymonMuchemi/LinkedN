@@ -1,21 +1,17 @@
 package com.symon.linkedn;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
+import android.content.Intent;
+import android.icu.util.Calendar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -24,7 +20,6 @@ import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
     private List<User> users;
-    WriteToLoggerFile loggerFile = new WriteToLoggerFile("imageLogs.txt");
 
     StorageReference firebaseStorageReference;
 
@@ -42,10 +37,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = users.get(position);
-        String imageName = user.getUserId() + ".jpg";
+//        String imageName = user.getUserId() + ".jpg";
 
         firebaseStorageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference imageReference = firebaseStorageReference.child("user_images/" + imageName);
+//        StorageReference imageReference = firebaseStorageReference.child("user_images/" + imageName);
+//        String mockLocation = "gs://linked-in-mock.appspot.com/user_images/1DLsVYKMrzXiVzFdxsf3XBc0qkt2.jpg";
 
         holder.userName.setText(user.getName());
         holder.mobileNo.setText(String.valueOf(user.getMobileNo()));
@@ -54,27 +50,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         holder.skills.setText(user.getSkills());
 //        holder.shapeableImageView.setImageURI(imageReference.getDownloadUrl().getResult());
 
-        if (holder.shapeableImageView != null) {
-            Glide.with(holder.itemView.getContext())
-                    .load(imageReference)
-                    .placeholder(R.drawable.linkedin)
-                    .error(R.drawable.linkedin)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Log.e("Glide", "Image load failed: " + e);
-                            return false;
-                        }
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            Log.d("Glide", "Image load successful");
-                            loggerFile.writeToFile("Image loaded from: " + imageReference);
-                            return false;
-                        }
-                    })
-                    .into(holder.shapeableImageView);
-        }
+        holder.userName.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), popupWindow.class);
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("phone", user.getMobileNo());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
