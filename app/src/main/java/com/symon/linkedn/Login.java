@@ -1,7 +1,6 @@
 package com.symon.linkedn;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,7 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     Button loginButton;
     TextView signUp;
-    EditText emailInput, passwordInput;
+    EditText emailInput;
+    TextInputEditText passwordInput;
     String email, password;
 
     private FirebaseAuth mAuth;
@@ -49,6 +50,9 @@ public class Login extends AppCompatActivity {
             email = String.valueOf(emailInput.getText());
             password = String.valueOf(passwordInput.getText());
 
+            if (!appNavigation.checkInputField(emailInput)) return;
+            if (!appNavigation.checkInputField(passwordInput)) return;
+
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
@@ -65,6 +69,6 @@ public class Login extends AppCompatActivity {
                         }
                     });
         });
-        signUp.setOnClickListener( v -> { appNavigation.moveToActivity(SignUp.class); });
+        signUp.setOnClickListener( v -> appNavigation.moveToActivity(SignUp.class));
     }
 }

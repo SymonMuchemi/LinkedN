@@ -55,9 +55,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 //        holder.shapeableImageView.setImageURI(imageReference.getDownloadUrl().getResult());
         Glide.with(holder.itemView.getContext())
                 .load(user.getUserImage())
+                .placeholder(R.drawable.person_24)
                 .into(holder.shapeableImageView);
 
-
+        //TODO: pad mobile number with a '0' or '+'
         holder.userName.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), popupWindow.class);
             intent.putExtra("email", user.getEmail());
