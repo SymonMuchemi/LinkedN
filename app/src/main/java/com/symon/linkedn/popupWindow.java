@@ -18,7 +18,7 @@ public class popupWindow extends AppCompatActivity {
     Button emailButton;
     Button mobileCallButton;
     TextView emailTextView;
-    String emailInput;
+    String emailContent;
 
     static final int PERMISSION_CODE = 100;
 
@@ -43,7 +43,7 @@ public class popupWindow extends AppCompatActivity {
         Intent intent = getIntent();
         String userEmail = intent.getStringExtra("email");
         String mobileNo = intent.getStringExtra("phone");
-        Log.d("MOBILE", mobileNo);
+        if (mobileNo != null) Log.d("MOBILE", mobileNo);
         if (ContextCompat.checkSelfPermission(popupWindow.this, getPackageName() + ".permission.CALL_PHONE") != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(popupWindow.this, new String[]{android.Manifest.permission.CALL_PHONE}, PERMISSION_CODE);
         }
@@ -65,10 +65,24 @@ public class popupWindow extends AppCompatActivity {
 
 
         emailButton.setOnClickListener(v -> {
-            emailInput = String.valueOf(emailTextView.getText()).trim();
-            Toast.makeText(this, "sending email to " + userEmail, Toast.LENGTH_SHORT).show();
-        });
+            emailContent = String.valueOf(emailTextView.getText()).trim();
 
+            sendEmail(emailContent, userEmail);
+        });
+    }
+    public void sendEmail(String emailBody, String to_email){
+        String subject = "Message from LinkedN Mock user";
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{to_email});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
+        emailIntent.setType("message/rfc822");
+        startActivity(Intent.createChooser(emailIntent, "Choose email client:"));
+    }
+
+    public void checkInputField(TextView textView){
 
     }
 }

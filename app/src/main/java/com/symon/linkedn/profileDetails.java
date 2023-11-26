@@ -134,7 +134,7 @@ public class profileDetails extends AppCompatActivity {
             appNavigation.moveToLogin();
         }
     }
-    public void insertUserData(){
+    public void insertUserData(String imageUrl){
         if (firebaseUser != null) {
             newUser.setName(name);
             newUser.setEmail(email);
@@ -143,7 +143,7 @@ public class profileDetails extends AppCompatActivity {
             newUser.setGender(gender);
             newUser.setShortBio(bio);
             newUser.setMobileNo(mobile);
-            newUser.setUserImage(imageName);
+            newUser.setUserImage(imageUrl);
             firebaseFirestore.collection("users").document(email).set(newUser);
             Toast.makeText(this, "Use with image created", Toast.LENGTH_SHORT).show();
             appNavigation.moveToActivity(LandingPage.class);
@@ -161,13 +161,25 @@ public class profileDetails extends AppCompatActivity {
                     .putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
                         newUser.setUserImage(imageName);
-                        insertUserData();
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
                         appNavigation.sessionComplete(updateDetailsButton, progressBar);
                         appNavigation.moveToLogin();
-                    });
+                    }).addOnCompleteListener(
+                            task -> {
+                                if (task.isSuccessful()){
+                                    firebaseStorageReference.child("user_images/" + imageName).getDownloadUrl().addOnCompleteListener(
+                                            task1 -> {
+                                                if (task1.isSuccessful()){
+                                                    String imageUrl = task1.getResult().toString();
+                                                    insertUserData(imageUrl);
+                                                }
+                                            }
+                                    );
+                                }
+                            }
+                    );
         } else {
             insertUserDataWithNoImage();
         }
